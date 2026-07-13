@@ -1,0 +1,53 @@
+{
+  "author": "Alex Kahn",
+  "description": "In-house audience & affinity intelligence — psychographic inference, interest/brand affinity profiles, and audience-overlap scoring from public signals, provider- and embedding-injected, so you don't pay an audience-intelligence SaaS per seat.",
+  "dependencies": {
+    "zod": "^4.3.6",
+    "@absolutejs/manifest": "^0.1.0",
+    "@sinclair/typebox": "^0.34.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "5.9.3"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "BSL-1.1",
+  "main": "./dist/index.js",
+  "name": "@absolutejs/audience",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/absolutejs/audience.git"
+  },
+  "scripts": {
+    "build": "rm -rf dist && bun build src/index.ts src/manifest.ts --outdir dist --root ./src --target=bun --external zod && tsc --emitDeclarationOnly --project tsconfig.json && absolute-manifest emit",
+    "release": "bun run build && bun publish",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "version": "0.0.3",
+  "absolutejs": {
+    "manifestContract": 1
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "import": "./dist/manifest.js",
+      "default": "./dist/manifest.js"
+    },
+    "./manifest.json": "./dist/manifest.json"
+  }
+}
