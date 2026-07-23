@@ -12,7 +12,9 @@ const tool = toolFactory<AudienceContext>();
 const entityInput = {
   bio: Type.Optional(Type.String({ description: "Public bio text." })),
   content: Type.Optional(
-    Type.String({ description: "Longer public content (site copy, articles)." }),
+    Type.String({
+      description: "Longer public content (site copy, articles).",
+    }),
   ),
   name: Type.Optional(Type.String()),
   posts: Type.Optional(Type.Array(Type.String())),
@@ -24,7 +26,7 @@ const entityInput = {
 };
 
 export const manifest = defineManifest<AudienceContext, AudienceContext>()({
-  contract: 1,
+  contract: 2,
   identity: {
     accent: "#ec4899",
     category: "growth",
@@ -46,7 +48,16 @@ export const manifest = defineManifest<AudienceContext, AudienceContext>()({
   }),
   tools: {
     audience_overlap: tool.runtime({
-      annotations: { openWorldHint: true, readOnlyHint: true },
+      annotations: { idempotentHint: true, openWorldHint: true },
+      authorization: {
+        approval: "never",
+        audience: "authenticated",
+        destinations: ["configured-audience-research-provider"],
+        effects: ["read", "external-network"],
+        idempotency: { mode: "host" },
+        requiredScopes: ["audience:read"],
+        reversible: false,
+      },
       description:
         "Measure the audience overlap between two people or brands from their public signals: extracts an affinity profile for each, embeds them, and returns a 0–1 overlap score with shared topics/brands and a rationale.",
       handler: async ({ a, b }, ctx) => {
@@ -63,7 +74,16 @@ export const manifest = defineManifest<AudienceContext, AudienceContext>()({
       }),
     }),
     infer_psychographics: tool.runtime({
-      annotations: { openWorldHint: true, readOnlyHint: true },
+      annotations: { idempotentHint: true, openWorldHint: true },
+      authorization: {
+        approval: "never",
+        audience: "authenticated",
+        destinations: ["configured-audience-research-provider"],
+        effects: ["read", "external-network"],
+        idempotency: { mode: "host" },
+        requiredScopes: ["audience:read"],
+        reversible: false,
+      },
       description:
         "Infer how to approach a person or brand from public signals only: communication style, tone, values, motivations, and a short summary. Hedges rather than inventing when signal is thin.",
       handler: async (input, ctx) =>

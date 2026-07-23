@@ -3,7 +3,7 @@
   "description": "In-house audience & affinity intelligence — psychographic inference, interest/brand affinity profiles, and audience-overlap scoring from public signals, provider- and embedding-injected, so you don't pay an audience-intelligence SaaS per seat.",
   "dependencies": {
     "zod": "^4.3.6",
-    "@absolutejs/manifest": "^0.1.0",
+    "@absolutejs/manifest": "^0.4.0",
     "@sinclair/typebox": "^0.34.0"
   },
   "devDependencies": {
@@ -33,9 +33,9 @@
   },
   "type": "module",
   "types": "./dist/index.d.ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "absolutejs": {
-    "manifestContract": 1
+    "manifestContract": 2
   },
   "exports": {
     ".": {
