@@ -3,17 +3,20 @@
   "description": "In-house audience & affinity intelligence — psychographic inference, interest/brand affinity profiles, and audience-overlap scoring from public signals, provider- and embedding-injected, so you don't pay an audience-intelligence SaaS per seat.",
   "dependencies": {
     "zod": "^4.3.6",
-    "@absolutejs/manifest": "^0.4.0",
+    "@absolutejs/manifest": "^0.9.0",
     "@sinclair/typebox": "^0.34.0"
   },
   "devDependencies": {
+    "@absolutejs/changelog": "^0.1.2",
     "@types/bun": "latest",
     "typescript": "5.9.3"
   },
   "files": [
-    "dist",
+    "CHANGELOG.md",
+    "LICENSE",
     "README.md",
-    "LICENSE"
+    "changelog.json",
+    "dist"
   ],
   "license": "BSL-1.1",
   "main": "./dist/index.js",
@@ -29,7 +32,8 @@
     "build": "rm -rf dist && bun build src/index.ts src/manifest.ts --outdir dist --root ./src --target=bun --external zod && tsc --emitDeclarationOnly --project tsconfig.json && absolute-manifest emit",
     "release": "bun run build && bun publish",
     "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:package": "absolute-changelog check"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
